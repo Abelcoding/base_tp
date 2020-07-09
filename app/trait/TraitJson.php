@@ -40,6 +40,32 @@ trait TraitJson
     }
 
 
+    /**
+     * 输出xml
+     * @param int $code //状态码
+     * @param string $msg //信息
+     * @param array $data //数据
+     * @param bool $throw //是否抛出返回异常(主要处理控制器初始化方法中返回)
+     * @return \think\response\Xml
+     * @throws \think\exception\HttpResponseException
+     */
+    public function toXml($code = \app\general\model\codeModel::OK, $msg = '', $data = [], $throw = false)
+    {
+        $returnData = [
+            'code' => $code,
+            'msg' => $msg,
+            'data' => $data,
+        ];
+        $response = \think\response\Xml::create($returnData);
+
+        if ($throw) {
+            throw new \think\exception\HttpResponseException($response);
+        }
+
+        return $response;
+    }
+
+
 
 
 }
